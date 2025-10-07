@@ -69,7 +69,7 @@ const ECommerce: React.FC = () => {
       };
       fetchData();
     }
-  }, [user?.data?.role]);
+  }, [user]);
 
   const downloadCSV = async () => {
     if (!startDate || !endDate) {

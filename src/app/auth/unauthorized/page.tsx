@@ -21,7 +21,7 @@ const Unauthorized = () => {
                         Access Denied
                     </h1>
                     <p className="text-gray-6 dark:text-gray-5 text-lg">
-                        You don't have permission to access this page. Please contact your administrator if you believe this is an error.
+                        You don&apos;t have permission to access this page. Please contact your administrator if you believe this is an error.
                     </p>
                     
                     {/* Action Buttons */}

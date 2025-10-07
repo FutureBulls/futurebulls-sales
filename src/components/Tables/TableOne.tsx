@@ -3,7 +3,7 @@ import { fetchCoursesData } from "@/Redux/courseSlice";
 import { AppDispatch, RootState } from "@/Redux/store";
 import { Combobox, Dialog } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/solid";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../common/Loader";
 import {

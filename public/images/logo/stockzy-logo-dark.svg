@@ -1,0 +1,24 @@
+<svg width="180" height="40" viewBox="0 0 180 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- StockZy Logo Design for Dark Mode -->
+  <defs>
+    <linearGradient id="stockzyGradientDark" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#60A5FA;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#34D399;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- S Icon with modern design -->
+  <path d="M8 8C8 4.68629 10.6863 2 14 2H26C29.3137 2 32 4.68629 32 8V12C32 15.3137 29.3137 18 26 18H14C10.6863 18 8 20.6863 8 24V28C8 31.3137 10.6863 34 14 34H26C29.3137 34 32 31.3137 32 28V24" 
+        stroke="url(#stockzyGradientDark)" 
+        stroke-width="3" 
+        stroke-linecap="round" 
+        stroke-linejoin="round" 
+        fill="none"/>
+  
+  <!-- StockZy Text -->
+  <text x="45" y="16" font-family="Inter, sans-serif" font-size="16" font-weight="700" fill="#60A5FA">Stock</text>
+  <text x="45" y="32" font-family="Inter, sans-serif" font-size="16" font-weight="700" fill="#34D399">Zy</text>
+  
+  <!-- Subtitle -->
+  <text x="45" y="26" font-family="Inter, sans-serif" font-size="8" font-weight="400" fill="#94A3B8">Learning Platform</text>
+</svg>

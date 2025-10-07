@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  student-dashboard:
+    container_name: sales-dashboard
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: sales-dashboard
+    env_file:
+      - .env
+    ports:
+      - "3004:3000"
+    restart: unless-stopped

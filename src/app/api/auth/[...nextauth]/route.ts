@@ -5,6 +5,10 @@ import { NextAuthOptions } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 
 const authOptions: NextAuthOptions = {
+  pages: {
+    signIn: '/auth/signin',
+    error: '/auth/signin',
+  },
   providers: [
     Credentials({
       name: "Credentials",
@@ -30,6 +34,7 @@ const authOptions: NextAuthOptions = {
             return user;
           }
         } catch (error: any) {
+          console.log(error, 'error in authorize');
           const errorMsg =
             error.response?.data?.message || error.message || "Login failed";
           throw new Error(errorMsg);
@@ -55,6 +60,14 @@ const authOptions: NextAuthOptions = {
     },
     async session({ session, token }) {
       return { ...session, token };
+    },
+    async redirect({ url, baseUrl }) {
+      // If url is relative, make it absolute
+      if (url.startsWith("/")) return `${baseUrl}${url}`;
+      // If url is on the same origin, allow it
+      else if (new URL(url).origin === baseUrl) return url;
+      // Otherwise redirect to dashboard
+      return `${baseUrl}/dashboard`;
     },
   },
   secret: process.env.NEXTAUTH_SECRET, // Add secret

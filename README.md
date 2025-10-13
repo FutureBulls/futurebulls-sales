@@ -48,7 +48,7 @@ By leveraging the latest features of **Next.js 14** and key functionalities like
    ```
 
 4. **Required Environment Variables**
-   - `NEXTAUTH_SECRET` - Generate with: `openssl rand -base64 32`
+   - `NEXT_PUBLIC_NEXTAUTH_SECRET` - Generate with: `openssl rand -base64 32`
    - `NEXT_PUBLIC_API_URL` - Your backend API URL
    - `NEXT_PUBLIC_PAYLOAD_SECRET` - Secret for payload signing
    - `NEXTAUTH_URL` - Your application URL

@@ -15,10 +15,10 @@ This guide will help you set up all the required environment variables for the S
 
 #### Essential Variables (Must Configure)
 
-1. **NEXTAUTH_SECRET**
+1. **NEXT_PUBLIC_NEXTAUTH_SECRET**
    - Generate a random secret key for NextAuth.js
    - Use this command: `openssl rand -base64 32`
-   - Example: `NEXTAUTH_SECRET=abc123def456ghi789jkl012mno345pqr678stu901vwx234yz`
+   - Example: `NEXT_PUBLIC_NEXTAUTH_SECRET=abc123def456ghi789jkl012mno345pqr678stu901vwx234yz`
 
 2. **NEXT_PUBLIC_API_URL**
    - Your backend API URL
@@ -103,14 +103,14 @@ After setting up your environment variables:
 
 ### Common Issues and Solutions
 
-#### Issue: "NEXTAUTH_SECRET is not set"
+#### Issue: "NEXT_PUBLIC_NEXTAUTH_SECRET is not set"
 **Solution**: Generate and set a proper secret key
 
 #### Issue: API calls failing
 **Solution**: Verify `NEXT_PUBLIC_API_URL` is correct and accessible
 
 #### Issue: Authentication not working
-**Solution**: Check `NEXTAUTH_URL` and `NEXTAUTH_SECRET` configuration
+**Solution**: Check `NEXTAUTH_URL` and `NEXT_PUBLIC_NEXTAUTH_SECRET` configuration
 
 ### Support
 

@@ -46,7 +46,7 @@ export default function SigninWithPassword() {
       const result = await signIn("credentials", {
         email,
         password,
-        callbackUrl: redirect_url || window.location.href,
+        callbackUrl: redirect_url || "/dashboard",
         redirect: false,
       });
 
@@ -61,9 +61,10 @@ export default function SigninWithPassword() {
         return;
       }
 
-      if (result?.url) {
-        const redirectTo = redirect_url || result.url;
-        navigation.replace(redirectTo); // Use replace to avoid back navigation to the sign-in page
+      if (result?.ok) {
+        // Successful login - redirect to dashboard or callback URL
+        const redirectTo = redirect_url || "/dashboard";
+        navigation.replace(redirectTo);
       }
     } catch (error) {
       console.error("Sign-in error:", error);

@@ -161,6 +161,7 @@ const TableOne = () => {
   const [notifySMS, setnotifySMS] = useState(false);
   const [referenceId, setReferenceId] = useState("");
   const [notes, setNotes] = useState("");
+  const [description, setDescription] = useState("");
   const [linkExpiry, setLinkExpiry] = useState("");
   const [showCopiedButton, setshowCopiedButton] = useState(false);
   const [courseAmount, setCourseAmount] = useState("");
@@ -175,14 +176,8 @@ const TableOne = () => {
 
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-
-    // Ensure amount is less than or equal to course amount
-    if (Number(value) <= Number(courseAmount)) {
-      setAmount(value);
-      setAmountError("");
-    } else {
-      setAmountError("Amount cannot be greater than the course amount.");
-    }
+    setAmount(value);
+    setAmountError("");
   };
 
   const handleSubmit = async (event: any) => {
@@ -218,8 +213,8 @@ const TableOne = () => {
       response = await createPaymentLink({
         linkType: 1,
         amount,
-        selectCourse,
-        courseAmount,
+        description,
+        serviceDetails: description,
         customerName,
         customerState,
         email,
@@ -327,25 +322,21 @@ const TableOne = () => {
   useEffect(() => {
     const isValid =
       amount !== "" &&
-      Number(amount) <= Number(courseAmount) &&
-      selectCourse !== "" &&
+      Number(amount) > 0 &&
+      description !== "" &&
       customerName !== "" &&
       customerState !== "" &&
       email !== "" &&
-      phone !== "" &&
-      Number(courseAmount) >= Number(courseBootcampAmount);
+      phone !== "";
 
     setIsFormValid(isValid);
   }, [
     amount,
-    courseAmount,
-    selectCourse,
+    description,
     customerName,
     customerState,
     email,
     phone,
-    linkExpiry,
-    courseBootcampAmount,
   ]);
 
   if (!coursesData || !user) {
@@ -614,98 +605,21 @@ const TableOne = () => {
                 )}
               </div>
 
-              {/* Currency Field */}
+              {/* Service Details Field */}
               <div className="mb-6">
                 <label className="mb-2 block text-sm font-medium text-dark dark:text-white">
-                  Course *
+                  Service Details *
                 </label>
-                <Combobox
-                  as="div"
-                  value={selectCourse}
-                  onChange={(value: string | null) => {
-                    if (value) {
-                      setSelectCourse(value);
-                      const selectedCourse = coursesData.find(
-                        (course) => course._id === value,
-                      );
-                      setCourseAmount(selectedCourse?.price || "");
-                      setCourseBootcampAmount(
-                        selectedCourse?.bootcampPrice || "",
-                      );
-                    }
-                  }}
-                >
-                  <div className="relative">
-                    <Combobox.Button as="div" className="w-full">
-                      <Combobox.Input
-                        className="block w-full rounded-md border border-gray-300 px-3 py-2 text-dark shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-dark-3 dark:bg-dark-2 dark:text-white dark:focus:border-primary sm:text-sm"
-                        onChange={(event) => setQuery(event.target.value)}
-                        displayValue={(courseId: string) =>
-                          coursesData.find(
-                            (course: any) => course._id === courseId,
-                          )?.title || ""
-                        }
-                        placeholder="Select or search a course"
-                        required
-                        onClick={() => setQuery("")} // Clear query on click to show all courses
-                      />
-                    </Combobox.Button>
-                    <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-dark-2 sm:text-sm">
-                      {filteredCourses.length === 0 && query !== "" ? (
-                        <div className="relative cursor-default select-none px-4 py-2 text-gray-700 dark:text-gray-300">
-                          Nothing found.
-                        </div>
-                      ) : (
-                        (query === "" ? coursesData : filteredCourses).map(
-                          (course: any) => (
-                            <Combobox.Option
-                              key={course._id}
-                              value={course._id}
-                              className={({ active }) =>
-                                `relative cursor-default select-none py-2 pl-3 pr-9 ${
-                                  active
-                                    ? "bg-blue-600 text-white"
-                                    : "text-gray-900 dark:text-white"
-                                }`
-                              }
-                            >
-                              {({ active, selected }) => (
-                                <span
-                                  className={`block truncate ${selected ? "font-semibold" : ""}`}
-                                >
-                                  {course.title}
-                                </span>
-                              )}
-                            </Combobox.Option>
-                          ),
-                        )
-                      )}
-                    </Combobox.Options>
-                  </div>
-                </Combobox>
+                <textarea
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  className="block w-full rounded-md border border-gray-300 px-3 py-2 text-dark shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-dark-3 dark:bg-dark-2 dark:text-white dark:focus:border-primary sm:text-sm"
+                  placeholder="Describe the service or product being charged for (e.g., 'Web Development Services', 'Consulting Session', 'Product Purchase')"
+                  rows={3}
+                  required
+                />
               </div>
 
-              {/* Course Amount Field - only visible when a course is selected */}
-              {selectCourse && (
-                <>
-                  <div className="mb-6">
-                    <label className="mb-2 block text-sm font-medium text-dark dark:text-white">
-                      Course Amount
-                    </label>
-                    <span className="text-sm text-yellow-500">
-                      Note: Course Amount should be greater than or equal to Rs.{" "}
-                      {courseBootcampAmount}.
-                    </span>
-                    <input
-                      type="number"
-                      value={courseAmount}
-                      onChange={(e) => setCourseAmount(e.target.value)}
-                      className="block w-full rounded-md border border-gray-300 px-3 py-2 text-dark shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-dark-3 dark:bg-dark-2 dark:text-white dark:focus:border-primary sm:text-sm"
-                      placeholder="Enter course amount"
-                    />
-                  </div>
-                </>
-              )}
 
               {/* Customer Name Field */}
               <div className="mb-6">

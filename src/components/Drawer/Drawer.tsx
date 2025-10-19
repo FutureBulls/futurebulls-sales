@@ -163,9 +163,10 @@ const Drawer = ({
       response = await createPaymentLink({
         linkType: 2,
         amount: paymentLinkData?.remainingAmount,
-        selectCourse: paymentLinkData?.courseId._id,
-        courseAmount: paymentLinkData?.remainingAmount,
+        description: `Recovery payment for ${paymentLinkData?.customerName}`,
+        serviceDetails: `Recovery payment for ${paymentLinkData?.customerName}`,
         customerName: paymentLinkData?.customerName,
+        customerState: paymentLinkData?.customerState || "",
         email: paymentLinkData?.customerEmail,
         phone: paymentLinkData?.customerPhone?.replace(/^\+91/, ""),
         notifyEmail,
@@ -403,7 +404,7 @@ const Drawer = ({
                     </div>
                   )}
                   <div
-                    className={`flex text-dark dark:text-white ${paymentLinkData.status === "Paid" ? "active" : paymentLinkData.status === "Partial" ? "active" : "hidden"}`}
+                    className={`flex text-dark dark:text-white ${paymentLinkData.status === "Paid" ? "active" : paymentLinkData.status === "Partial" ? "active" : paymentLinkData.status === "Settled" ? "active" : "hidden"}`}
                   >
                     <span className="w-50">Download Invoice</span>
                     <span
@@ -439,8 +440,8 @@ const Drawer = ({
                     <span>{paymentLinkData?.userId?.name ?? "Admin"}</span>
                   </div>
                   <div className="flex text-dark dark:text-white">
-                    <span className="w-50">Course</span>
-                    <span>{paymentLinkData.courseId.title}</span>
+                    <span className="w-50">Service Details</span>
+                    <span>{paymentLinkData.description || paymentLinkData.courseId?.title || "Service Payment"}</span>
                   </div>
                   <div className="flex text-dark dark:text-white">
                     <span className="w-50">Created At</span>
@@ -524,20 +525,18 @@ const Drawer = ({
                   </div>
                 </div>
 
-                {/* Currency Field */}
+                {/* Service Details Field */}
                 <div className="mb-6">
                   <label className="mb-2 block text-sm font-medium text-dark dark:text-white">
-                    Course *
+                    Service Details
                   </label>
-                  <div className="flex">
-                    <input
-                      type="text"
-                      value={paymentLinkData?.courseId.title}
-                      className="block w-full rounded-md border border-gray-300 px-3 py-2 text-dark shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-dark-3 dark:bg-dark-2 dark:text-white dark:focus:border-primary sm:text-sm"
-                      placeholder="Describe the purpose of payment"
-                      disabled
-                    />
-                  </div>
+                  <textarea
+                    value={`Recovery payment for ${paymentLinkData?.customerName}`}
+                    className="block w-full rounded-md border border-gray-300 px-3 py-2 text-dark shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-dark-3 dark:bg-dark-2 dark:text-white dark:focus:border-primary sm:text-sm"
+                    placeholder="Describe the service or product being charged for"
+                    rows={3}
+                    disabled
+                  />
                 </div>
 
                 {/* Customer Name Field */}
@@ -1050,7 +1049,7 @@ const Drawer = ({
                     </div>
                   )}
                   <div
-                    className={`flex text-dark dark:text-white ${paymentLinkData.status === "Paid" ? "active" : paymentLinkData.status === "Partial" ? "active" : "hidden"}`}
+                    className={`flex text-dark dark:text-white ${paymentLinkData.status === "Paid" ? "active" : paymentLinkData.status === "Partial" ? "active" : paymentLinkData.status === "Settled" ? "active" : "hidden"}`}
                   >
                     <span className="w-50">Download Invoice</span>
                     <span
@@ -1086,8 +1085,8 @@ const Drawer = ({
                     <span>{paymentLinkData?.userId?.name ?? "Admin"}</span>
                   </div>
                   <div className="flex text-dark dark:text-white">
-                    <span className="w-50">Course</span>
-                    <span>{paymentLinkData.courseId?.title}</span>
+                    <span className="w-50">Service Details</span>
+                    <span>{paymentLinkData.description || paymentLinkData.courseId?.title || "Service Payment"}</span>
                   </div>
                   <div className="flex text-dark dark:text-white">
                     <span className="w-50">Created At</span>
@@ -1177,20 +1176,18 @@ const Drawer = ({
                   </div>
                 </div>
 
-                {/* Currency Field */}
+                {/* Service Details Field */}
                 <div className="mb-6">
                   <label className="mb-2 block text-sm font-medium text-dark dark:text-white">
-                    Course *
+                    Service Details
                   </label>
-                  <div className="flex">
-                    <input
-                      type="text"
-                      value={paymentLinkData?.courseId?.title}
-                      className="block w-full rounded-md border border-gray-300 px-3 py-2 text-dark shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-dark-3 dark:bg-dark-2 dark:text-white dark:focus:border-primary sm:text-sm"
-                      placeholder="Describe the purpose of payment"
-                      disabled
-                    />
-                  </div>
+                  <textarea
+                    value={`Recovery payment for ${paymentLinkData?.customerName}`}
+                    className="block w-full rounded-md border border-gray-300 px-3 py-2 text-dark shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-dark-3 dark:bg-dark-2 dark:text-white dark:focus:border-primary sm:text-sm"
+                    placeholder="Describe the service or product being charged for"
+                    rows={3}
+                    disabled
+                  />
                 </div>
 
                 {/* Customer Name Field */}

@@ -2,7 +2,7 @@ APP_ENV=development
 NEXTAUTH_URL=http://localhost:3000
 NEXTAUTH_SECRET=stokzy.com
 
-NEXT_PUBLIC_API_URL=https://api.stokzy.com
+NEXT_PUBLIC_API_URL=http://localhost:8000
 NEXT_PUBLIC_PAYLOAD_SECRET=your-payload-secret-key-here
 
 CORS_ORIGIN=http://localhost:3000
@@ -14,6 +14,12 @@ NEXT_PUBLIC_ENABLE_NOTIFICATIONS=true
 
 NODE_ENV=development
 DEBUG=true
+
+# AWS S3 Configuration
+AWS_REGION=us-east-1
+AWS_ACCESS_KEY_ID=your-aws-access-key-id
+AWS_SECRET_ACCESS_KEY=your-aws-secret-access-key
+AWS_S3_BUCKET_NAME=futurebulls-bulk-invoices
 
 
 
